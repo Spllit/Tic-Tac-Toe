@@ -14,25 +14,17 @@ function touchListener() {
             e.target.innerHTML = ex
             turn = !turn
             move++
-            if(move > 2){
-                if(buildField()[0][0].firstChild == buildField()[0][1].firstChild) {
-                    console.log(true)
-                }
-                else {
-                    console.log(buildField()[0][0].firstChild)
-                    console.log(buildField()[0][1].firstChild)
-                    console.log(e)
-                    console.log(false)
-                }
+            if(move >= row + 2){
+                checkRows()
             }
         }
         else if(e.target.className == 'box' && turn == false){
             e.target.innerHTML = zero
             turn = !turn
             move++
-            // if(move >= row + 2){
-            //     checkRows()
-            // }
+            if(move >= row + 2){
+                checkRows()
+            }
         }
     })
 }
@@ -46,7 +38,6 @@ function buildField() {
     }
     return field
 }
-
 // function checkResult() {
 //     if(move >= horizontal[0].children.length){
 //         checkRows()
@@ -54,51 +45,50 @@ function buildField() {
 //         checkDiagonals()
 //     }
 // }
-// function checkRows() {
-//     let result = 0
-//     let control = ''
-//     for(let i = 0; i < buildField().length; i++){
-//         if(buildField()[i][0].firstChild == undefined) continue
-//         else{
-//             console.log('i: ' + i)
-//             control = buildField()[i][0].firstChild
-//             for(let k = 0; k < buildField()[i].length; k++){
-//                 console.log('k: ' + k)
-//                 let current = control
-
-//                 if( buildField()[i][k].firstChild == current) {
-//                     // console.log(1)
-//                     continue
-//                 }
-//                 else {
-//                     // console.log(2)
-//                     current = buildField()[i][k].firstChild
-//                 }
-
-//                 if(k == buildField()[i].length - 1 && current != control) {
-//                     // console.log(3)
-//                     result = 0
-//                     console.log(result)
-//                 }
-//                 else if(k == buildField()[i].length - 1 && current == control){
-//                     // console.log(4)
-//                     if(current == zero) {
-//                         // console.log(5)
-//                         console.log('zero')
-//                     }
-//                     else if(current == ex) {
-//                         // console.log(6)
-//                         console.log('ex')
-//                     }
-//                 }
-//             }
-//         }
-//     }
+function checkRows() {
+    let result = 0
+    let control = ''
+    let current = ''
+    for(let i = 0; i < buildField().length; i++){
+        if(buildField()[i][0].firstChild == undefined) continue
+        else{
+            control = ''
+            current = ''
+            control = buildField()[i][0].firstChild.src
+            current = control
+            for(let k = 0; k < buildField()[i].length; k++){    
+                if(buildField()[i][k].firstChild === null){
+                    break
+                }
+                if(buildField()[i][k].firstChild.src != current) {
+                    current = buildField()[i][k].firstChild.src
+                }
+                if(k == buildField()[i].length - 1 && current != control) {
+                    result = 0
+                    console.log(result)
+                    return result
+                }   
+                else if(k == buildField()[i].length - 1 && current == control){
+                    if(current == 'http://127.0.0.1:5500/img/o.svg') {
+                        result = 'zero'
+                        console.log(result)
+                        return result
+                        
+                    }
+                    else if(current == 'http://127.0.0.1:5500/img/x.svg') {
+                        result = 'ex'
+                        console.log(result)
+                        return result
+                    }
+                }
+            }
+        }
+    }
     
-// }
-// function checkColumns() {
+}
+function checkColumns() {
     
-// }
+}
 // function checkDiagonals() {
     
 // }

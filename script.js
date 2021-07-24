@@ -144,10 +144,12 @@ function checkColumns() {
     return result
 }
 function checkDiagonals() {
+    diаgonalToBottom(result,  control, maxLength)
+    diаgonalToTop(result,  control, maxLength)
     let result = 0
     let maxLength = row -1
     let control = ''
-    let diagonalToTop = digonalToTop(result,  control, maxLength)
+    let diagonalToTop = diаgonalToTop(result,  control, maxLength)
     let digonalToBottom = digonalToBottom(result,  control, maxLength)
     if(diagonalToTop == 0 && digonalToBottom == 0) return result
     else if (diagonalToTop != 0) {
@@ -158,11 +160,8 @@ function checkDiagonals() {
         result = digonalToBottom
         return result
     }
-
-    
-
 }
-function digonalToTop(result,  control, maxLength) {
+function diаgonalToTop(result,  control, maxLength) {
     result = 0
     control = ''
     maxLength = row - 1
@@ -195,7 +194,7 @@ function digonalToTop(result,  control, maxLength) {
         maxLength--
     }
 }
-function digonalToBottom(result,  control, maxLength){
+function diаgonalToBottom(result,  control, maxLength){
     result = 0
     control = ''
     maxLength = row -1

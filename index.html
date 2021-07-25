@@ -8,24 +8,62 @@
     <title>Document</title>
 </head>
 <body>
-    <div class="container">
-         <div class="area">
-             <div class="area__row">
-                 <div class="box"></div>
-                 <div class="box"></div>
-                 <div class="box"></div>
+    <div class="wrapper">
+        <div class="container">
+             <div class="area">
+                 <div class="area__row">
+                     <div data-click="enable"class="box"></div>
+                     <div data-click="enable"class="box"></div>
+                     <div data-click="enable"class="box"></div>
+                 </div>
+                 <div class="area__row">
+                     <div data-click="enable"class="box"></div>
+                     <div data-click="enable"class="box"></div>
+                     <div data-click="enable"class="box"></div>
+                 </div>
+                 <div class="area__row">
+                     <div data-click="enable"class="box"></div>
+                     <div data-click="enable"class="box"></div>
+                     <div data-click="enable"class="box"></div>
+                 </div>
              </div>
-             <div class="area__row">
-                 <div class="box"></div>
-                 <div class="box"></div>
-                 <div class="box"></div>
-             </div>
-             <div class="area__row">
-                 <div class="box"></div>
-                 <div class="box"></div>
-                 <div class="box"></div>
-             </div>
-         </div>
+        </div>
+        <div class="theme">
+            <img src="img/moon.svg" alt="theme">
+        </div>
+        <!-- <div class="size">
+            <div class="size__container">
+                <button data-size="3" class="size__item">
+                    3x3
+                </button>
+                <button data-size="4" class="size__item">
+                    4x4
+                </button>
+                <button data-size="5" class="size__item">
+                    5x5
+                </button>
+                <button data-size="6" class="size__item">
+                    6x6
+                </button>
+            </div> 
+        </div> -->
+    </div>
+    <div class="pop-up">
+        <div class="pop-up__container">
+            <div class="pop-up__title">
+                <span class="winner">Winner</span>
+            </div>
+            <div class="pop-up__body">
+                <div class="pop-up__body_img">
+                    <img src="img/draw.svg" alt="winner" class="winner-img">
+                </div>
+            </div>
+        </div>
+        <div class="pop-up__reload reload">
+            <button class="reload__btn">
+                <img src="img/reload.svg" alt="reload">
+            </button>
+        </div>
     </div>
     <script src="script.js"></script>
 </body>

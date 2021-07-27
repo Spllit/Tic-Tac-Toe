@@ -49,6 +49,8 @@ function reload() {
         popUp.classList.remove('pop-up--show')
         clearField()
     })
+    move = 0
+    turn = true
 }
 
 function buildField() {
@@ -73,7 +75,7 @@ function checkResult() {
         result = 'draw'
         popUp.classList.add('pop-up--show')
         popUpWinnerTitle.innerHTML = result
-        popUpWinnerImg.src = 'file:///D:/Projects/Tic-Tac-Toe/img/draw.svg'
+        popUpWinnerImg.src = 'img/draw.svg'
         reload()
         return result
     }
@@ -130,18 +132,18 @@ function checkRows() {
                     break
                 }
                 if(buildField()[i][k].firstChild.src != control) {
-                    console.log(buildField()[i][k].firstChild.src)
+                    console.log(buildField()[i][k].firstChild)
                     control = ''
                     break
                 }
                 else if(k == buildField()[i].length - 1){
                     if(control == 'http://127.0.0.1:5500/img/o.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/o.svg') {
-                        result = control
+                        result = 'img/o.svg'
                         return result
                         
                     }
                     else if(control == 'http://127.0.0.1:5500/img/x.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/x.svg') {
-                        result = control
+                        result = 'img/x.svg'
                         return result
                     }
                 }
@@ -169,12 +171,12 @@ function checkColumns() {
                 } 
                 else if(k == buildField()[i].length - 1){
                     if(control == 'http://127.0.0.1:5500/img/o.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/o.svg') {
-                        result = control
+                        result = 'img/o.svg'
                         return result
                         
                     }
                     else if(control == 'http://127.0.0.1:5500/img/x.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/x.svg') {
-                        result = control
+                        result = 'img/x.svg'
                         return result
                     }
                 }
@@ -219,11 +221,11 @@ function diаgonalToTop(result,  control, maxLength) {
         }
         else if(i == 0 && maxLength == 0){
             if(control == 'http://127.0.0.1:5500/img/o.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/o.svg') {
-                result = control
+                result = 'img/o.svg'
                 return result
             }
             else if(control == 'http://127.0.0.1:5500/img/x.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/x.svg') {
-                result = control
+                result = 'img/x.svg'
                 return result
             }
         }
@@ -250,11 +252,11 @@ function diagonalToBottom(result,  control, maxLength){
         }
         else if(i == row - 1 && maxLength == 0){
             if(control == 'http://127.0.0.1:5500/img/o.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/o.svg') {
-                result = control
+                result = 'img/o.svg'
                 return result
             }
             else if(control == 'http://127.0.0.1:5500/img/x.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/x.svg') {
-                result = control
+                result = 'img/x.svg'
                 return result
             }
         }

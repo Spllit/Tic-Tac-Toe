@@ -73,6 +73,7 @@ function checkResult() {
         result = 'draw'
         popUp.classList.add('pop-up--show')
         popUpWinnerTitle.innerHTML = result
+        popUpWinnerImg.src = 'file:///D:/Projects/Tic-Tac-Toe/img/draw.svg'
         reload()
         return result
     }
@@ -133,12 +134,12 @@ function checkRows() {
                     break
                 }
                 else if(k == buildField()[i].length - 1){
-                    if(control == 'http://127.0.0.1:5500/img/o.svg') {
+                    if(control == 'http://127.0.0.1:5500/img/o.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/o.svg') {
                         result = control
                         return result
                         
                     }
-                    else if(control == 'http://127.0.0.1:5500/img/x.svg') {
+                    else if(control == 'http://127.0.0.1:5500/img/x.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/x.svg') {
                         result = control
                         return result
                     }
@@ -166,12 +167,12 @@ function checkColumns() {
                     break
                 } 
                 else if(k == buildField()[i].length - 1){
-                    if(control == 'http://127.0.0.1:5500/img/o.svg') {
+                    if(control == 'http://127.0.0.1:5500/img/o.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/o.svg') {
                         result = control
                         return result
                         
                     }
-                    else if(control == 'http://127.0.0.1:5500/img/x.svg') {
+                    else if(control == 'http://127.0.0.1:5500/img/x.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/x.svg') {
                         result = control
                         return result
                     }
@@ -207,7 +208,7 @@ function diаgonalToTop(result,  control, maxLength) {
     }
     control = buildField()[0][0].firstChild.src
     for(let i = row - 1; i > -1; i--){
-        if(buildField()[maxLength][maxLength].firstChild === undefined){
+        if(buildField()[maxLength][maxLength].firstChild === null){
             result = 0
             return  result
         }
@@ -216,11 +217,11 @@ function diаgonalToTop(result,  control, maxLength) {
             return result
         }
         else if(i == 0 && maxLength == 0){
-            if(control == 'http://127.0.0.1:5500/img/o.svg') {
+            if(control == 'http://127.0.0.1:5500/img/o.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/o.svg') {
                 result = control
                 return result
             }
-            else if(control == 'http://127.0.0.1:5500/img/x.svg') {
+            else if(control == 'http://127.0.0.1:5500/img/x.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/x.svg') {
                 result = control
                 return result
             }
@@ -247,11 +248,11 @@ function diagonalToBottom(result,  control, maxLength){
             return result
         }
         else if(i == row - 1 && maxLength == 0){
-            if(control == 'http://127.0.0.1:5500/img/o.svg') {
+            if(control == 'http://127.0.0.1:5500/img/o.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/o.svg') {
                 result = control
                 return result
             }
-            else if(control == 'http://127.0.0.1:5500/img/x.svg') {
+            else if(control == 'http://127.0.0.1:5500/img/x.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/x.svg') {
                 result = control
                 return result
             }
@@ -271,14 +272,14 @@ function switchTheme() {
         toggle.children[0].src = 'img/sun.svg'
         wrapper.classList.add('wrapper--dark')
         popUp.classList.add('pop-up--dark')
-        size.classList.add('size--dark')
+        // size.classList.add('size--dark')
     }
     else if (status === false){
         status = !status
         toggle.children[0].src = 'img/moon.svg'
         wrapper.classList.remove('wrapper--dark')
         popUp.classList.remove('pop-up--dark')
-        size.classList.remove('size--dark')
+        // size.classList.remove('size--dark')
     }
     })
 }

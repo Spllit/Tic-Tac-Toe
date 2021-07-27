@@ -130,6 +130,7 @@ function checkRows() {
                     break
                 }
                 if(buildField()[i][k].firstChild.src != control) {
+                    console.log(buildField()[i][k].firstChild.src)
                     control = ''
                     break
                 }

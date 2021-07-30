@@ -4,7 +4,7 @@ const horizontal = document.querySelectorAll('.area__row')
 const zero = '<img src="img/o.svg">'
 const ex = '<img src="img/x.svg">'
 let popUp = document.querySelector('.pop-up')
-let popUpWinnerImg = document.querySelector('.winner-img')
+let popUpWinnerImg = document.querySelector('.pop-up__body_img')
 let popUpWinnerTitle = document.querySelector('.winner')
 let turn = true;
 let columns = horizontal[0].children.length
@@ -75,7 +75,7 @@ function checkResult() {
         result = 'draw'
         popUp.classList.add('pop-up--show')
         popUpWinnerTitle.innerHTML = result
-        popUpWinnerImg.src = 'img/draw.svg'
+        popUpWinnerImg.innerHTML = '<img src="img/draw.svg" alt="winner" class="winner-img"></img>'
         reload()
         return result
     }
@@ -83,7 +83,7 @@ function checkResult() {
         result = rows
         popUp.classList.add('pop-up--show')
         popUpWinnerTitle.innerHTML == 'Winner'
-        popUpWinnerImg.src = result
+        popUpWinnerImg.innerHTML = result
         reload()
         return result
     }
@@ -91,7 +91,7 @@ function checkResult() {
         result = columns
         popUp.classList.add('pop-up--show')
         popUpWinnerTitle.innerHTML == 'Winner'
-        popUpWinnerImg.src = result
+        popUpWinnerImg.innerHTML = result
         reload()
         return result
     }
@@ -99,7 +99,7 @@ function checkResult() {
         result = diagonals
         popUp.classList.add('pop-up--show')
         popUpWinnerTitle.innerHTML == 'Winner'
-        popUpWinnerImg.src = result
+        popUpWinnerImg.innerHTML = result
         reload()
         return result
     }
@@ -122,30 +122,18 @@ function checkRows() {
     let result = 0
     let control = ''
     for(let i = 0; i < buildField().length; i++){
-        if(buildField()[i][0].firstChild == undefined) continue
+        if(buildField()[i][0].firstChild == null || buildField()[i][buildField()[i].length - 1].firstChild == null) continue
         else{
             control = ''
-            control = buildField()[i][0].firstChild.src
+            control = buildField()[i][0].firstChild.outerHTML
             for(let k = 0; k < buildField()[i].length; k++){    
-                if(buildField()[i][k].firstChild == undefined){
-                    control = ''
-                    break
-                }
-                if(buildField()[i][k].firstChild.src != control) {
-                    console.log(buildField()[i][k].firstChild)
+                if(buildField()[i][k].firstChild === null || buildField()[i][k].firstChild.outerHTML != control) {
                     control = ''
                     break
                 }
                 else if(k == buildField()[i].length - 1){
-                    if(control == 'http://127.0.0.1:5500/img/o.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/o.svg') {
-                        result = 'img/o.svg'
-                        return result
-                        
-                    }
-                    else if(control == 'http://127.0.0.1:5500/img/x.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/x.svg') {
-                        result = 'img/x.svg'
-                        return result
-                    }
+                    result = control
+                    return result
                 }
             }
         }
@@ -156,29 +144,18 @@ function checkColumns() {
     let result = 0
     let control = ''
     for(let i = 0; i < buildField().length; i++){
-        if(buildField()[0][i].firstChild == undefined) continue
+        if(buildField()[0][i].firstChild == null || buildField()[buildField().length-1][i] == null) continue
         else{
             control = ''
-            control = buildField()[0][i].firstChild.src
+            control = buildField()[0][i].firstChild.outerHTML
             for(let k = 0; k < buildField()[i].length; k++){    
-                if(buildField()[k][i].firstChild == undefined || buildField()[k][i].firstChild == null){
+                if(buildField()[k][i].firstChild == null || buildField()[k][i].firstChild.outerHTML != control){
                     control = ''
                     break
                 }
-                if(buildField()[k][i].firstChild.src != control) {
-                    control = ''
-                    break
-                } 
-                else if(k == buildField()[i].length - 1){
-                    if(control == 'http://127.0.0.1:5500/img/o.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/o.svg') {
-                        result = 'img/o.svg'
-                        return result
-                        
-                    }
-                    else if(control == 'http://127.0.0.1:5500/img/x.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/x.svg') {
-                        result = 'img/x.svg'
-                        return result
-                    }
+                else if(k == buildField().length - 1){
+                    result = control
+                    return result
                 }
             }
         }
@@ -205,29 +182,19 @@ function diаgonalToTop(result,  control, maxLength) {
     result = 0
     control = ''
     maxLength = row - 1
-    if( buildField()[0][0].firstChild == undefined || buildField()[maxLength][maxLength].firstChild == undefined){
+    if( buildField()[0][0].firstChild == null || buildField()[maxLength][maxLength].firstChild == null){
         result = 0
         return result
     }
-    control = buildField()[0][0].firstChild.src
+    control = buildField()[0][0].firstChild.outerHTML
     for(let i = row - 1; i > -1; i--){
-        if(buildField()[maxLength][maxLength].firstChild === null){
+        if(buildField()[maxLength][maxLength].firstChild === null || buildField()[maxLength][maxLength].firstChild.outerHTML != control){
             result = 0
             return  result
         }
-        if(buildField()[maxLength][maxLength].firstChild.src != control){
-            result = 0
-            return result
-        }
         else if(i == 0 && maxLength == 0){
-            if(control == 'http://127.0.0.1:5500/img/o.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/o.svg') {
-                result = 'img/o.svg'
-                return result
-            }
-            else if(control == 'http://127.0.0.1:5500/img/x.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/x.svg') {
-                result = 'img/x.svg'
-                return result
-            }
+            result = control
+            return result
         }
         maxLength--
     }
@@ -236,29 +203,19 @@ function diagonalToBottom(result,  control, maxLength){
     result = 0
     control = ''
     maxLength = row -1
-    if( buildField()[maxLength][0].firstChild == undefined || buildField()[0][maxLength].firstChild == undefined){
+    if( buildField()[maxLength][0].firstChild == null || buildField()[0][maxLength].firstChild == null){
         result = 0
         return result
     }
-    control = buildField()[maxLength][0].firstChild.src
+    control = buildField()[maxLength][0].firstChild.outerHTML
     for(let i = 0; i < row; i++){
-        if(buildField()[i][maxLength].firstChild === null){
+        if(buildField()[i][maxLength].firstChild === null || buildField()[i][maxLength].firstChild.outerHTML != control){
             result = 0
             return  result
         }
-        if(buildField()[i][maxLength].firstChild.src != control){
-            result = 0
-            return result
-        }
         else if(i == row - 1 && maxLength == 0){
-            if(control == 'http://127.0.0.1:5500/img/o.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/o.svg') {
-                result = 'img/o.svg'
-                return result
-            }
-            else if(control == 'http://127.0.0.1:5500/img/x.svg' || control == 'file:///D:/Projects/Tic-Tac-Toe/img/x.svg') {
-                result = 'img/x.svg'
-                return result
-            }
+            result = control
+            return result
         }
         maxLength--
     }

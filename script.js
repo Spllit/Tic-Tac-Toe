@@ -127,6 +127,7 @@ function checkRows() {
             control = ''
             control = buildField()[i][0].firstChild.outerHTML
             for(let k = 0; k < buildField()[i].length; k++){    
+                console.log(buildField()[i][k].firstChild.outerHTML)
                 if(buildField()[i][k].firstChild === null || buildField()[i][k].firstChild.outerHTML != control) {
                     control = ''
                     break
@@ -149,6 +150,7 @@ function checkColumns() {
             control = ''
             control = buildField()[0][i].firstChild.outerHTML
             for(let k = 0; k < buildField()[i].length; k++){    
+                console.log(buildField()[k][i].firstChild.outerHTML)
                 if(buildField()[k][i].firstChild == null || buildField()[k][i].firstChild.outerHTML != control){
                     control = ''
                     break
@@ -188,6 +190,7 @@ function diаgonalToTop(result,  control, maxLength) {
     }
     control = buildField()[0][0].firstChild.outerHTML
     for(let i = row - 1; i > -1; i--){
+        console.log(buildField()[maxLength][maxLength].firstChild.outerHTML)
         if(buildField()[maxLength][maxLength].firstChild === null || buildField()[maxLength][maxLength].firstChild.outerHTML != control){
             result = 0
             return  result
@@ -209,6 +212,7 @@ function diagonalToBottom(result,  control, maxLength){
     }
     control = buildField()[maxLength][0].firstChild.outerHTML
     for(let i = 0; i < row; i++){
+        console.log(buildField()[i][maxLength].firstChild.outerHTML)
         if(buildField()[i][maxLength].firstChild === null || buildField()[i][maxLength].firstChild.outerHTML != control){
             result = 0
             return  result

@@ -1,15 +1,25 @@
 const area = document.querySelector('.container')
 const box = document.querySelectorAll('.box')
-const horizontal = document.querySelectorAll('.area__row')
 const zero = '<img src="img/o.svg">'
 const ex = '<img src="img/x.svg">'
 let popUp = document.querySelector('.pop-up')
 let popUpWinnerImg = document.querySelector('.pop-up__body_img')
 let popUpWinnerTitle = document.querySelector('.winner')
+let size = 3
 let turn = true;
-let columns = horizontal[0].children.length
-let row = horizontal[0].children.length
 let move = 0
+
+function drawField(){
+    const area = document.querySelector('.area')
+    area.innerHTML = ''
+    for(let i = 0; i < size; i++){
+        area.innerHTML += '<div class="area__row">'
+        for(let k = 0; k < size; k++){
+            area.children[i].innerHTML += '<div data-click="enable"class="box"></div>'
+        }
+    }
+    area.style.width = 100*size + 'px'
+}
 
 function touchListener() {
     area.addEventListener('click', e => {
@@ -18,7 +28,7 @@ function touchListener() {
             e.target.dataset.click = 'disabled'
             turn = !turn
             move++
-            if(move >= row + (row - 1)){
+            if(move >= size + (size - 1)){
                 checkResult()
             }
         }
@@ -27,7 +37,7 @@ function touchListener() {
             e.target.dataset.click = 'disabled'
             turn = !turn
             move++
-            if(move >= row + (row - 1)){
+            if(move >= size + (size - 1)){
                 checkResult()
             }
         }
@@ -54,11 +64,12 @@ function reload() {
 }
 
 function buildField() {
+    let row = document.querySelectorAll('.area__row')
     let field = []
-    for(let i = 0; i < horizontal.length; i++){
+    for(let i = 0; i < size; i++){
         field.push([])
-        for(let k = 0; k < row; k++){
-            field[i].push(horizontal[i].children[k])
+        for(let k = 0; k < size; k++){
+            field[i].push(row[i].children[k])
         }
     }
     return field
@@ -106,45 +117,36 @@ function checkResult() {
 }
 
 function checkDraw() {
-    for(let i = 0; i < buildField().length; i++){
+    for(let i = 0; i < size; i++){
         for(let k = 0; k < buildField()[i].length; k++){
-            if(buildField()[i][k].firstChild == undefined){
-                return 
-            }
-            else if(i == buildField().length - 1 && k == buildField()[i].length - 1){
-                return 0
-            }
+            if(buildField()[i][k].firstChild == undefined) return 
+            else if(i == buildField().length - 1 && k == buildField()[i].length - 1) return 0
         }
     }
 }
 
 function checkRows() {
-    let result = 0
     let control = ''
     for(let i = 0; i < buildField().length; i++){
-        if(buildField()[i][0].firstChild == null || buildField()[i][buildField()[i].length - 1].firstChild == null) continue
+        if(buildField()[i][0].firstChild == null || buildField()[i][size - 1].firstChild == null) continue
         else{
             control = ''
             control = buildField()[i][0].firstChild.outerHTML
-            for(let k = 0; k < buildField()[i].length; k++){    
+            for(let k = 0; k < size; k++){    
                 if(buildField()[i][k].firstChild === null || buildField()[i][k].firstChild.outerHTML != control) {
                     control = ''
                     break
                 }
-                else if(k == buildField()[i].length - 1){
-                    result = control
-                    return result
-                }
+                else if(k == size - 1) return control
             }
         }
     }
-    return result
+    return 0
 }
 function checkColumns() {
-    let result = 0
     let control = ''
     for(let i = 0; i < buildField().length; i++){
-        if(buildField()[0][i].firstChild == null || buildField()[buildField().length-1][i] == null) continue
+        if(buildField()[0][i].firstChild == null || buildField()[size - 1][i] == null) continue
         else{
             control = ''
             control = buildField()[0][i].firstChild.outerHTML
@@ -153,70 +155,41 @@ function checkColumns() {
                     control = ''
                     break
                 }
-                else if(k == buildField().length - 1){
-                    result = control
-                    return result
-                }
+                else if(k == size - 1) return control
             }
         }
     }
-    return result
+    return 0
 }
 function checkDiagonals() {
-    let result = 0
-    let maxLength = row -1
+    let diagonalToTop = diаgonalToTop()
+    let digonalToBottom = diagonalToBottom()
+
+    if(diagonalToTop == 0 && digonalToBottom == 0) return 0
+    else if (diagonalToTop != 0) return diagonalToTop
+    else if (digonalToBottom != 0) return digonalToBottom
+}
+function diаgonalToTop() {
     let control = ''
-    let diagonalToTop = diаgonalToTop(result,  control, maxLength)
-    let digonalToBottom = diagonalToBottom(result,  control, maxLength)
-    if(diagonalToTop == 0 && digonalToBottom == 0) return result
-    else if (diagonalToTop != 0) {
-        result = diagonalToTop
-        return result
-    }
-    else if (digonalToBottom != 0) {
-        result = digonalToBottom
-        return result
-    }
-}
-function diаgonalToTop(result,  control, maxLength) {
-    result = 0
-    control = ''
-    maxLength = row - 1
-    if( buildField()[0][0].firstChild == null || buildField()[maxLength][maxLength].firstChild == null){
-        result = 0
-        return result
-    }
+    if( buildField()[0][0].firstChild == null || buildField()[size - 1][size - 1].firstChild == null) return 0
+
     control = buildField()[0][0].firstChild.outerHTML
-    for(let i = row - 1; i > -1; i--){
-        if(buildField()[maxLength][maxLength].firstChild === null || buildField()[maxLength][maxLength].firstChild.outerHTML != control){
-            result = 0
-            return  result
-        }
-        else if(i == 0 && maxLength == 0){
-            result = control
-            return result
-        }
-        maxLength--
+
+    for(let i = size - 1; i > -1; i--){
+        if(buildField()[i][i].firstChild == null || buildField()[i][i].firstChild.outerHTML != control) return  0
+        else if(i == 0 ) return control
     }
 }
-function diagonalToBottom(result,  control, maxLength){
-    result = 0
-    control = ''
-    maxLength = row -1
-    if( buildField()[maxLength][0].firstChild == null || buildField()[0][maxLength].firstChild == null){
-        result = 0
-        return result
-    }
+function diagonalToBottom(){
+    let control = ''
+    let maxLength = size - 1
+    if( buildField()[maxLength][0].firstChild == null || buildField()[0][maxLength].firstChild == null) return 0
+
     control = buildField()[maxLength][0].firstChild.outerHTML
-    for(let i = 0; i < row; i++){
-        if(buildField()[i][maxLength].firstChild === null || buildField()[i][maxLength].firstChild.outerHTML != control){
-            result = 0
-            return  result
-        }
-        else if(i == row - 1 && maxLength == 0){
-            result = control
-            return result
-        }
+
+    for(let i = 0; i < size; i++){
+        if(buildField()[i][maxLength].firstChild === null || buildField()[i][maxLength].firstChild.outerHTML != control) return  0
+        else if(i == size - 1 && maxLength == 0) return control
         maxLength--
     }
 }
@@ -232,18 +205,31 @@ function switchTheme() {
         toggle.children[0].src = 'img/sun.svg'
         wrapper.classList.add('wrapper--dark')
         popUp.classList.add('pop-up--dark')
-        // size.classList.add('size--dark')
+        size.classList.add('size--dark')
     }
     else if (status === false){
         status = !status
         toggle.children[0].src = 'img/moon.svg'
         wrapper.classList.remove('wrapper--dark')
         popUp.classList.remove('pop-up--dark')
-        // size.classList.remove('size--dark')
+        size.classList.remove('size--dark')
     }
     })
 }
 
+function switchSize(){
+    let buttons = document.querySelectorAll('.size__item')
+    buttons.forEach(btn => {
+        btn.addEventListener('click', () => {
+            size = +btn.dataset.size
+            drawField()
+            buildField()
+        })
+    })
+}
+
+drawField()
 touchListener()
 buildField()
 switchTheme()
+switchSize()

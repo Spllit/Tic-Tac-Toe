@@ -1,3 +1,1 @@
 # Tic-Tac-Toe
-Hope someone of them who is watching this project will add a new feature that allows to change a size of the playground. You can uncomment buttons for this feature (34th line in the HTML file) and if you know how the program it go ahead. 
-Anyway just enjoy of this small game...

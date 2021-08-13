@@ -93,7 +93,7 @@ function checkResult() {
     if(rows != 0) {
         result = rows
         popUp.classList.add('pop-up--show')
-        popUpWinnerTitle.innerHTML == 'Winner'
+        popUpWinnerTitle.innerHTML = 'Winner'
         popUpWinnerImg.innerHTML = result
         reload()
         return result
@@ -101,7 +101,7 @@ function checkResult() {
     else if(columns != 0) {
         result = columns
         popUp.classList.add('pop-up--show')
-        popUpWinnerTitle.innerHTML == 'Winner'
+        popUpWinnerTitle.innerHTML = 'Winner'
         popUpWinnerImg.innerHTML = result
         reload()
         return result
@@ -109,7 +109,7 @@ function checkResult() {
     else if(diagonals != 0) {
         result = diagonals
         popUp.classList.add('pop-up--show')
-        popUpWinnerTitle.innerHTML == 'Winner'
+        popUpWinnerTitle.innerHTML = 'Winner'
         popUpWinnerImg.innerHTML = result
         reload()
         return result

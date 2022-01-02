@@ -5,12 +5,16 @@ const ex = '<img src="img/x.svg">'
 let popUp = document.querySelector('.pop-up')
 let popUpWinnerImg = document.querySelector('.pop-up__body_img')
 let popUpWinnerTitle = document.querySelector('.winner')
-let size = 3
 let turn = true;
 let move = 0
 
+
+
 function drawField(){
     const area = document.querySelector('.area')
+    if(size === null){
+        size = 3
+    }
     area.innerHTML = ''
     for(let i = 0; i < size; i++){
         area.innerHTML += '<div class="area__row">'
@@ -70,6 +74,7 @@ function buildField() {
         field.push([])
         for(let k = 0; k < size; k++){
             field[i].push(row[i].children[k])
+            
         }
     }
     return field
@@ -193,28 +198,40 @@ function diagonalToBottom(){
         maxLength--
     }
 }
+    function checkTheme() {
+        let status = getLocalData('status')
+        let toggle = document.querySelector('.theme')
+        if (status === null) {
+            status = true
+            updateStorage('status', status)
+        }
+        console.log(status)
+        switchTheme(status, toggle)
+      toggle.addEventListener('click', () => {
+          status = !status
+          updateStorage('status', status)
+          switchTheme(status, toggle)
+      })
+    }   
+    function switchTheme(status, toggle){
+        let size = document.querySelector('.size')
+        let wrapper = document.querySelector('.wrapper')
+        if(status){
+            toggle.children[0].src = 'img/sun.svg'
+            wrapper.classList.add('wrapper--dark')
+            popUp.classList.add('pop-up--dark')
+            size.classList.add('size--dark')
+        }
+        else if (status == false) {
+            toggle.children[0].src = 'img/moon.svg'
+            wrapper.classList.remove('wrapper--dark')
+            popUp.classList.remove('pop-up--dark')
+            size.classList.remove('size--dark')
+        }
+    }
 
-function switchTheme() {
-    let wrapper = document.querySelector('.wrapper')
-    let status = true
-    let toggle = document.querySelector('.theme')
-    let size = document.querySelector('.size')
-    toggle.addEventListener('click', () => {
-    if(status){
-        status = !status
-        toggle.children[0].src = 'img/sun.svg'
-        wrapper.classList.add('wrapper--dark')
-        popUp.classList.add('pop-up--dark')
-        size.classList.add('size--dark')
-    }
-    else if (status === false){
-        status = !status
-        toggle.children[0].src = 'img/moon.svg'
-        wrapper.classList.remove('wrapper--dark')
-        popUp.classList.remove('pop-up--dark')
-        size.classList.remove('size--dark')
-    }
-    })
+function updateSizeOfField(){
+    size = getLocalData('size')
 }
 
 function switchSize(){
@@ -222,14 +239,22 @@ function switchSize(){
     buttons.forEach(btn => {
         btn.addEventListener('click', () => {
             size = +btn.dataset.size
+            updateStorage('size', size)
             drawField()
             buildField()
         })
     })
 }
 
+function updateStorage(key, value){
+    localStorage.setItem(key, JSON.stringify(value))
+}
+function getLocalData(key){
+    return JSON.parse(localStorage.getItem(key))
+}
+updateSizeOfField()
+checkTheme()
 drawField()
 touchListener()
 buildField()
-switchTheme()
 switchSize()
